@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SpotifyService } from '../spotify.service';
 
 @Component({
   selector: 'app-update',
@@ -9,16 +10,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './update.component.css'
 })
 export class UpdateComponent implements OnInit {
-  queryParams: any;
+  
 
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) { 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // Subscribe to queryParams observable to read the parameters
-    this.route.queryParams.subscribe((params) => {
-      console.log('Query Parameters:', params);
-      this.queryParams = params;
-    });
+    const queryParams = this.route.snapshot.queryParams;
+    this.spotifyService.setCode(queryParams)
+    if(this.spotifyService.isCodeValid()) { 
+      await this.spotifyService.setAccessToken()
+      this.updatePlaylist()
+    }
   }
+
+  updatePlaylist(){
+    this.spotifyService.updatePlaylist()
+  }
+
 }

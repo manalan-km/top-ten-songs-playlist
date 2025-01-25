@@ -54,6 +54,12 @@ importers:
       '@types/jasmine':
         specifier: ~5.1.0
         version: 5.1.5
+      '@types/node':
+        specifier: ^22.10.7
+        version: 22.10.7
+      '@types/spotify-api':
+        specifier: ^0.0.25
+        version: 0.0.25
       jasmine-core:
         specifier: ~5.2.0
         version: 5.2.0
@@ -1664,6 +1670,9 @@ packages:
 
   '@types/sockjs@0.3.36':
     resolution: {integrity: sha512-MK9V6NzAS1+Ud7JV9lJLFqW85VbC9dq3LmwZCuBe4wBDgKC0Kj/jd8Xl+nSviU+Qc3+m7umHHyHg//2KSa0a0Q==}
+
+  '@types/spotify-api@0.0.25':
+    resolution: {integrity: sha512-okhoy0U9fPWtwqCfbDyW8VxamhqvXE0gXIVeMOh5HcvEFQvWW2X0VsvdiX/OyiGQpZbZiOJXIGrbnIPfK0AIpA==}
 
   '@types/wrap-ansi@3.0.0':
     resolution: {integrity: sha512-ltIpx+kM7g/MLRZfkbL7EsCEjfzCcScLpkg37eXEtx5kmrAKBkTJwd1GIAjDSL8wTpM6Hzn5YO4pSb91BEwu1g==}
@@ -6033,6 +6042,8 @@ snapshots:
   '@types/sockjs@0.3.36':
     dependencies:
       '@types/node': 22.10.7
+
+  '@types/spotify-api@0.0.25': {}
 
   '@types/wrap-ansi@3.0.0': {}
 
