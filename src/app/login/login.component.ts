@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CLIENT_ID, CLIENT_SECRET } from '../../secrets';
+import { SpotifyService } from '../spotify.service';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +10,20 @@ import { CLIENT_ID, CLIENT_SECRET } from '../../secrets';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  #clientID= CLIENT_ID
-  #scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
+  #clientID:string
+  #scope:string
+  redirectURI:string
 
 
-  constructor() { 
+  constructor(private spotifyService: SpotifyService) { 
+    this.#clientID = this.spotifyService.getClientID()
+    this.#scope = this.spotifyService.getScope()
+    this.redirectURI = this.spotifyService.getRedirectURI()
+    
+    console.log(this.#clientID, this.#scope)
     this.login()
   }
+
   generateRandomString = (length: number): string => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
