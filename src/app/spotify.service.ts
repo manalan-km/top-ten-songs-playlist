@@ -56,7 +56,7 @@ export class SpotifyService {
     let songURIs: string[] = [];
 
     const accessToken = this.token.access_token
-    const url = 'https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10' 
+    const url = 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10' 
 
     const headers = {
       Authorization: `Bearer ${accessToken}`,
@@ -171,6 +171,8 @@ export class SpotifyService {
       
       if(response.ok) { 
         console.log('Updated Playlist!')
+        this.updatePlaylistDescription()
+
       }
       else { 
         throw new Error(`Failed updating top 10 songs : ${response.status} : ${response.statusText} `)
@@ -188,5 +190,44 @@ export class SpotifyService {
 
   }
 
+
+  async updatePlaylistDescription() { 
+    const description = `This is my top 10 frequently listened songs for the past week. Updated on ${new Date()}`
+    const accessToken = this.token.access_token
+
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    }
+
+    const body = {
+      "description": description,
+      "public": false
+    }
+
+    const url = "https://api.spotify.com/v1/playlists/" + this.playlistURI
+
+    try { 
+      const response = await fetch(url,{
+        method:"PUT",
+        headers: headers,
+        body: JSON.stringify(body)
+      })
+      
+      if(response.ok) { 
+        console.log('Updated Playlist Description!')
+      }
+      else { 
+        throw new Error(`Failed updating description : ${response.status} : ${response.statusText} `)
+      }
+      
+    }
+
+    catch(err) { 
+      console.log(`Failed to update playlist description ${err}`)
+    }
+
+
+  }
 
 }
